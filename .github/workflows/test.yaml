@@ -38,7 +38,7 @@ env:
 jobs:
   ### Init
   init:
-    if: github.event.pull_request.merged == true || github.event_name == 'push'
+    if: github.event_name == 'push'
     name: init
     runs-on: ubuntu-latest
     permissions:
