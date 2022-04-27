@@ -36,7 +36,7 @@ env:
         github.base_ref == 'deploy/stg1' && 'stg1'
       ) ||
       (
-        startsWith(github.ref, 'refs/heads/release/dev') && 'dev'
+        startsWith(github.ref, 'refs/heads/release/dev/') && 'dev'
       ) ||
       (
         startsWith(github.ref, 'refs/heads/release/dev1') && 'dev1'
