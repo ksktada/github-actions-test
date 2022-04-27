@@ -34,12 +34,22 @@ env:
       ) ||
       (
         github.base_ref == 'deploy/stg1' && 'stg1'
+      ) ||
+      (
+        startsWith(github.ref, 'refs/heads/release/dev') && 'dev'
+      ) ||
+      (
+        startsWith(github.ref, 'refs/heads/release/dev1') && 'dev1'
+      ) ||
+      (
+        startsWith(github.ref, 'refs/heads/release/dev3') && 'dev3'
       )
     }}
 ### Jobs
 jobs:
   ### Init
   init:
+    if: github.event.pull_request.merged == true || github.event_name == 'push'
     name: init
     runs-on: ubuntu-latest
     permissions:
