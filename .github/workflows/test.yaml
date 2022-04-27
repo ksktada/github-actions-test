@@ -34,13 +34,13 @@ env:
         github.base_ref == 'deploy/stg1' && 'stg1'
       ) ||
       (
-        startsWith(github.action_ref, 'release/dev') && 'dev'
+        startsWith(github.ref, 'release/dev') && 'dev'
       ) ||
       (
-        startsWith(github.action_ref, 'release/dev1') && 'dev1'
+        startsWith(github.ref, 'release/dev1') && 'dev1'
       ) ||
       (
-        startsWith(github.action_ref, 'release/dev3') && 'dev3'
+        startsWith(github.ref, 'release/dev3') && 'dev3'
       )
     }}
 ### Jobs
