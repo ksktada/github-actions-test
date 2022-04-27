@@ -8,6 +8,11 @@ on:
       - main
     #types: [opened, synchronize]
     types: [closed]
+  push:
+    branches:
+      - release/dev/**
+    paths:
+      - "src/app/**"
 
 ### Environment variables(env.xxx)
 env:
