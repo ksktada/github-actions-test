@@ -34,13 +34,13 @@ env:
         github.base_ref == 'deploy/stg1' && 'stg1'
       ) ||
       (
-        startsWith(github.ref, 'release/dev') && 'dev'
+        startsWith(github.ref, 'refs/heads/release/dev') && 'dev'
       ) ||
       (
-        startsWith(github.ref, 'release/dev1') && 'dev1'
+        startsWith(github.ref, 'refs/heads/release/dev1') && 'dev1'
       ) ||
       (
-        startsWith(github.ref, 'release/dev3') && 'dev3'
+        startsWith(github.ref, 'refs/heads/release/dev3') && 'dev3'
       )
     }}
 ### Jobs
@@ -85,7 +85,6 @@ jobs:
               )
             }}
         run: |
-          echo "${github.ref}"
           echo "::set-output name=ENV::${ENV}"
           echo "::set-output name=EX_ENV::${ENV^}"
           echo "::set-output name=ACCOUNT_ENV::${ACCOUNT_ENV}"
