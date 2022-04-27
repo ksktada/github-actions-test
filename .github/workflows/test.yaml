@@ -90,6 +90,7 @@ jobs:
           echo "::set-output name=ACCOUNT_ENV::${ACCOUNT_ENV}"
           echo "::set-output name=ACCOUNT_ID::${ACCOUNT_ID}"
           echo "::set-output name=MAVEN_PROFILE::${MAVEN_PROFILE}"
+          echo "${{github.event_name}}"
     outputs:
       ENV: ${{ steps.init.outputs.ENV }}
       EX_ENV: ${{ steps.init.outputs.EX_ENV }}
