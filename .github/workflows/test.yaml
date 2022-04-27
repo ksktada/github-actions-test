@@ -1,0 +1,84 @@
+### Workflow
+name: vs-apl-build-release
+
+### Event Trigger
+on:
+  pull_request:
+    branches:
+      - main
+    #types: [opened, synchronize]
+    types: [closed]
+
+### Environment variables(env.xxx)
+env:
+  ENV: >-
+    ${{
+      (
+        github.base_ref == 'main' && 'dev'
+      ) ||
+      (
+        github.base_ref == 'deploy/dev1' && 'dev1'
+      ) ||
+      (
+        github.base_ref == 'deploy/dev3' && 'dev3'
+      ) ||
+      (
+        github.base_ref == 'stg_prod' && 'stg'
+      ) ||
+      (
+        github.base_ref == 'deploy/stg1' && 'stg1'
+      )
+    }}
+### Jobs
+jobs:
+  ### Init
+  init:
+    if: github.event.pull_request.merged == true
+    name: init
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Init.
+        id: init
+        env:
+          ACCOUNT_ENV: >-
+            ${{
+              (
+                startsWith(env.ENV, 'dev') && 'dev'
+              ) ||
+              (
+                startsWith(env.ENV, 'stg') && 'stg'
+              )
+            }}
+          ACCOUNT_ID: >-
+            ${{
+              (
+                startsWith(env.ENV, 'dev') && '068948435246'
+              ) ||
+              (
+                startsWith(env.ENV, 'stg') && '754366226611'
+              )
+            }}
+          MAVEN_PROFILE: >-
+            ${{
+              (
+                startsWith(env.ENV, 'dev') && 'develop'
+              ) ||
+              (
+                startsWith(env.ENV, 'stg') && 'staging'
+              )
+            }}
+        run: |
+          echo "::set-output name=ENV::${ENV}"
+          echo "::set-output name=EX_ENV::${ENV^}"
+          echo "::set-output name=ACCOUNT_ENV::${ACCOUNT_ENV}"
+          echo "::set-output name=ACCOUNT_ID::${ACCOUNT_ID}"
+          echo "::set-output name=MAVEN_PROFILE::${MAVEN_PROFILE}"
+    outputs:
+      ENV: ${{ steps.init.outputs.ENV }}
+      EX_ENV: ${{ steps.init.outputs.EX_ENV }}
+      ACCOUNT_ENV: ${{ steps.init.outputs.ACCOUNT_ENV }}
+      ACCOUNT_ID: ${{ steps.init.outputs.ACCOUNT_ID }}
+      MAVEN_PROFILE: ${{ steps.init.outputs.MAVEN_PROFILE }}
