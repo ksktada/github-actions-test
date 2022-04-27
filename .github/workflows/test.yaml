@@ -11,6 +11,8 @@ on:
   push:
     branches:
       - release/dev/**
+      - release/dev1/**
+      - release/dev3/**
     paths:
       - "src/app/**"
 
