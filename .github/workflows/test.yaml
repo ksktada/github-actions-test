@@ -85,6 +85,7 @@ jobs:
               )
             }}
         run: |
+          echo "${github.ref}"
           echo "::set-output name=ENV::${ENV}"
           echo "::set-output name=EX_ENV::${ENV^}"
           echo "::set-output name=ACCOUNT_ENV::${ACCOUNT_ENV}"
